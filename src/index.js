@@ -11,14 +11,14 @@ ReactDOM.render(<App />, document.getElementById('root'))
 const swapi = new SwapiService()
 
 swapi.getAllPlanets()
-  .then( people => {
-    people.forEach(element => {
-      console.log(element.name);
+  .then( element => {
+    element.forEach(element => {
+      // console.log( 'Planet ', element);
     });
     }
   )
-swapi.getPerson('4')
-  .then( persone => {
-      console.log(persone);
-    }
-  )
+// swapi.getPerson('4')
+//   .then( persone => {
+//       console.log(persone);
+//     }
+//   )

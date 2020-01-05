@@ -1,11 +1,28 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import './App.css'
+
+import './header.css'
 
 export default () => {
   return (
-    <div className="Header">
-
-    </div>
+      <div className="Header d-flex">
+        <h3>
+          <a href="#">
+            StarDB
+          </a>
+        </h3>
+        <ul className="d-flex">
+          <li>
+            <a href="#">People</a>
+          </li>
+          <li>
+            <a href="#">Planets</a>
+          </li>
+          <li>
+            <a href="#">Starships</a>
+          </li>
+        </ul>
+      </div>
   );
 }
 

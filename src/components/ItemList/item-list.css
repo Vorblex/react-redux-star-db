@@ -1,3 +1,11 @@
 .ItemList {
-  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.ItemList .list-group-item {
+  cursor: pointer;
+}
+
+.ItemList .list-group-item:hover {
+  background-color: #444;
 }

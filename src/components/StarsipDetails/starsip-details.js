@@ -6,7 +6,7 @@ export default class extends Component {
 
   render() {
     return (
-      <div className="PlanetDetails">
+      <div className="StarsipDetails">
 
       </div>
     )

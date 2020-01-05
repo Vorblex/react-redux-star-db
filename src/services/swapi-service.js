@@ -2,7 +2,7 @@ export default class {
 
   _apiBase = 'https://swapi.co/api'
 
-  async getResource(url) {
+  getResource = async url => {
     const res = await fetch(`${this._apiBase}${url}`)
 
     if (!res.ok) throw new Error(`Could not fetch ${url}, received ${res.status}`)
@@ -10,30 +10,62 @@ export default class {
     return await res.json()
   }
 
-  async getAllPeople() {
+  getAllPeople = async () => {
     const res = await this.getResource(`/people/`)
-    return res.results
+    return res.results.map(this._transformPerson).slice(0, 5)
   }
 
-  getPerson(id) {
-    return this.getResource(`/people/${id}`)
+  getPerson = async id => {
+    const res = await this.getResource(`/people/${id}`)
+    return  this._transformPerson(res) 
   }
 
-  async getAllPlanets() {
+  getAllPlanets = async () => {
     const res = await this.getResource(`/planets/`)
-    return res.results
+    return res.results.map(this._transformPlanet)
   }
 
-  getPlanet(id) {
-    return this.getResource(`/planets/${id}`)
+  getPlanet = async id => {
+    const planet = await this.getResource(`/planets/${id}`)
+    return this._transformPlanet(planet)
   }
 
-  async getAllStarships() {
+  getAllStarships = async () => {
     const res = await this.getResource(`/starships/`)
     return res.results
   }
 
-  getStarship(id) {
+  getStarship = async id => {
     return this.getResource(`/starships/${id}`)
   }
+
+  _extractId(item) {
+    const idRegExp = /\/([0-9]*)\/$/
+    return item.url.match(idRegExp)[1]
+  }
+
+  _transformPerson = ({birth_year : birthYear,eye_color: eyeColor, ...rest}) => {
+    return {
+      id: this._extractId(rest),
+      birthYear,
+      eyeColor,
+      ...rest
+    }
+  }
+
+  _transformPlanet = ({rotation_period : rotationPeriod, ...rest}) => {
+    return {
+      id: this._extractId(rest),
+      rotationPeriod,
+      ...rest
+    }
+  }
+  
+  _transformStarship = (starship) => {
+    return {
+      id: this._extractId(starship),
+      starship
+    }
+  }
+  
 }
