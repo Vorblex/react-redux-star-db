@@ -18,7 +18,7 @@ export default class extends Component {
 
   componentDidMount() {
     this.updatePlanet()
-    this.interval = setInterval(this.updatePlanet, 5e3)
+    // this.interval = setInterval(this.updatePlanet, 5e3)
   }
 
   componentWillUnmount() {
@@ -37,7 +37,6 @@ export default class extends Component {
       error: true,
       loading: false
     })
-
   }
 
   updatePlanet = () => {

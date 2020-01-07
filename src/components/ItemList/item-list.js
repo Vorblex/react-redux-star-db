@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import SwapiService from '../../services/swapi-service'
 import Spinner from '../Spinner'
 
 import './item-list.css'
 
 export default class extends Component {
-
-  swapiService = new SwapiService()
 
   state = {
     itemList: null
@@ -24,13 +21,16 @@ export default class extends Component {
       })
   }
 
-  renderItems(itemList) {
-    return itemList.map(({id, name}) => {
+  renderItems = itemList => {
+    return itemList.map(({id, ...item}) => {
+
+      const label = this.props.children(item)
+
       return (
         <li className="list-group-item"
             key={id}
             onClick={ () => this.props.onItemSelected(id) }>
-          {name}
+          {label}
         </li> 
       )
     })

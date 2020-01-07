@@ -1,52 +1,66 @@
 import React, { Component } from 'react'
 import SwapiService from '../../services/swapi-service'
 import Spinner from '../Spinner'
+import ErrorIndicator from '../ErrorIndicator'
 
-import './person-details.css'
+import './item-details.css'
 
 export default class extends Component {
 
   swapiService = new SwapiService()
 
   state = {
-    person: null,
-    loading: false
+    item: null,
+    loading: true,
+    error: false
   }
 
-  updatePerson() {
-    const { personId } = this.props
-    if(!personId) return
+  onItemLoaded = item => {
+      this.setState({
+        item,
+        loading: false,
+        error: false
+      })
+  }
 
-    this.setState({ loading: true })
+  _onError = () => {
+    this.setState({
+      error: true,
+      loading: false
+    })
+  }
 
-    this.swapiService.getPerson(personId)
-    .then(person => {
-      this.setState({ person })
-      this.setState({ loading: false })
-    } )
+  updateItem() {
+    const { itemId } = this.props
+    if(!itemId) return
+
+    this.swapiService
+      .getPerson(itemId)
+      .then(this.onItemLoaded)
+      .catch(this._onError)
   }
 
   componentDidMount() {
-    this.updatePerson()
+    this.updateItem()
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId === prevProps.personId) return
-    this.updatePerson()
+    if (this.props.itemId === prevProps.itemId) return
+    this.updateItem()
   }
 
   render() {
-
-    if(!this.state.person) return <div className="text-center">Select a person from a list</div>
-
-    const {loading, person: {
-            id, name, gender,
-            birthYear, eyeColor}} = this.state
-
+    const {item, loading, error} = this.state
+    
+    if (error) return <ErrorIndicator />
     if(loading) return <div className="d-flex"><Spinner /></div>
+    if(!item) return <div className="text-center">Select a person from a list</div>
+
+    const {id, name, gender,
+           birthYear, eyeColor} = item
 
     return (
-      <div className="PersonDetails card flex-row">
+      <div className="ItemDetails card flex-row">
         <img className="person-image"
              alt="person"
              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
