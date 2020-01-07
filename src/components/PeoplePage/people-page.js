@@ -6,6 +6,7 @@ import SwapiService from '../../services/swapi-service'
 import ErrorBoundry from '../ErrorBoundry'
 import RowComponent from '../RowComponent'
 import Record from '../Record'
+import { withData } from "../hoc-helpers";
 
 import './people-page.css'
 
@@ -31,15 +32,17 @@ export default class extends Component {
 
     const {selectedPersonId} = this.state
     const { getPerson, getPersonImage} = this.swapiService
-    const itemList = (
-      <ItemList onItemSelected={this.onPersonSelected}
-                getData={this.swapiService.getAllPeople}
-      >
-        { i => (
-         `${i.name} (${i.birthYear})` 
-        )}
-      </ItemList>
-    )
+    // const itemList = (
+    //   <ItemList onItemSelected={this.onPersonSelected}
+    //             getData={this.swapiService.getAllPeople}
+    //   >
+    //     { i => (
+    //      `${i.name} (${i.birthYear})` 
+    //     )}
+    //   </ItemList>
+    // )
+
+    const PersonList = withData(ItemList, this.swapiService.getAllPeople)
 
     const personDetails = (
       <ItemDetails itemId={selectedPersonId}
@@ -53,7 +56,7 @@ export default class extends Component {
 
     return (
       <ErrorBoundry>
-          <RowComponent leftElement={itemList} rightElement={personDetails} />
+          <RowComponent leftElement={<PersonList onItemSelected={this.onPersonSelected}>{this.renderPeopleItem}</PersonList>} rightElement={personDetails} />
       </ErrorBoundry>
     )
   }
