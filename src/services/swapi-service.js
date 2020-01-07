@@ -1,6 +1,7 @@
 export default class {
 
   _apiBase = 'https://swapi.co/api'
+  _imageBase = 'https://starwars-visualguide.com/assets/img'
 
   getResource = async url => {
     const res = await fetch(`${this._apiBase}${url}`)
@@ -26,17 +27,30 @@ export default class {
   }
 
   getPlanet = async id => {
-    const planet = await this.getResource(`/planets/${id}`)
-    return this._transformPlanet(planet)
+    const res = await this.getResource(`/planets/${id}`)
+    return this._transformPlanet(res)
   }
 
   getAllStarships = async () => {
     const res = await this.getResource(`/starships/`)
-    return res.results
+    return res.results.map(this._transformStarship)
   }
 
   getStarship = async id => {
-    return this.getResource(`/starships/${id}`)
+    const res = await this.getResource(`/starships/${id}`)
+    return this._transformStarship(res)
+  }
+
+  getPersonImage = ({id}) => {
+    return `${this._imageBase}/characters/${id}.jpg`
+  }
+
+  getPlanetImage = ({id}) => {
+    return `${this._imageBase}/planets/${id}.jpg`
+  }
+
+  getStarshipImage = ({id}) => {
+    return `${this._imageBase}/starships/${id}.jpg`
   }
 
   _extractId(item) {
@@ -53,7 +67,9 @@ export default class {
     }
   }
 
-  _transformPlanet = ({rotation_period : rotationPeriod, ...rest}) => {
+  _transformPlanet = ({ rotation_period : rotationPeriod,
+                        orbital_period : orbitalPeriod,
+                        ...rest}) => {
     return {
       id: this._extractId(rest),
       rotationPeriod,
@@ -61,10 +77,14 @@ export default class {
     }
   }
   
-  _transformStarship = (starship) => {
+  _transformStarship = ({ cost_in_credits : costInCredits,
+                          cargo_capacity : cargoCapacity,
+                          ...rest}) => {
     return {
-      id: this._extractId(starship),
-      starship
+      id: this._extractId(rest),
+      costInCredits,
+      cargoCapacity,
+      ...rest
     }
   }
   

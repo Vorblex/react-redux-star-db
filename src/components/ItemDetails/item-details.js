@@ -11,13 +11,16 @@ export default class extends Component {
 
   state = {
     item: null,
+    image: null,
     loading: true,
     error: false
   }
 
   onItemLoaded = item => {
+    const { getImageUrl } = this.props
       this.setState({
         item,
+        image: getImageUrl(item),
         loading: false,
         error: false
       })
@@ -31,11 +34,10 @@ export default class extends Component {
   }
 
   updateItem() {
-    const { itemId } = this.props
+    const { itemId, getData} = this.props
     if(!itemId) return
 
-    this.swapiService
-      .getPerson(itemId)
+    getData(itemId)
       .then(this.onItemLoaded)
       .catch(this._onError)
   }
@@ -49,37 +51,33 @@ export default class extends Component {
     this.updateItem()
   }
 
+  // addChildProp(item) {
+  //   return React.Children.map( this.props.children, child => {
+  //     return React.cloneElement(child, { item })
+  //   } )
+  // }
+
   render() {
-    const {item, loading, error} = this.state
-    
+    const {item, image, loading, error} = this.state
+
     if (error) return <ErrorIndicator />
     if(loading) return <div className="d-flex"><Spinner /></div>
     if(!item) return <div className="text-center">Select a person from a list</div>
-
-    const {id, name, gender,
-           birthYear, eyeColor} = item
 
     return (
       <div className="ItemDetails card flex-row">
         <img className="person-image"
              alt="person"
-             src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+             src={image} />
 
         <div className="card-body">
-          <h4>{name}</h4>
+          <h4>{item.name}</h4>
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="term">Gender</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Birth Year</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Eye Color</span>
-              <span>{eyeColor}</span>
-            </li>
+            {
+              React.Children.map( this.props.children, child => {
+                return React.cloneElement(child, { item })
+              } )
+            }
           </ul>
         </div>
       </div>

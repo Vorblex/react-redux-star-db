@@ -5,6 +5,7 @@ import ItemDetails from '../ItemDetails'
 import SwapiService from '../../services/swapi-service'
 import ErrorBoundry from '../ErrorBoundry'
 import RowComponent from '../RowComponent'
+import Record from '../Record'
 
 import './people-page.css'
 
@@ -29,6 +30,7 @@ export default class extends Component {
   render() {
 
     const {selectedPersonId} = this.state
+    const { getPerson, getPersonImage} = this.swapiService
     const itemList = (
       <ItemList onItemSelected={this.onPersonSelected}
                 getData={this.swapiService.getAllPeople}
@@ -39,7 +41,15 @@ export default class extends Component {
       </ItemList>
     )
 
-    const personDetails = <ItemDetails itemId={selectedPersonId} />
+    const personDetails = (
+      <ItemDetails itemId={selectedPersonId}
+                   getData={getPerson}
+                   getImageUrl={getPersonImage}
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </ItemDetails>
+    )
 
     return (
       <ErrorBoundry>
