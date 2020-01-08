@@ -1,5 +1,7 @@
-import withData from './with-data'
+import WithData from './with-data'
+import WithSwapiService from './with-swapi-service'
 
 export {
-  withData
+  WithData,
+  WithSwapiService
 }

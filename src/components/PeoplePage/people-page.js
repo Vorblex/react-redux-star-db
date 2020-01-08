@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import SwapiService from '../../services/swapi-service'
 import ErrorBoundry from '../ErrorBoundry'
 import RowComponent from '../RowComponent'
 import { PersonList, PersonDetails, PlanetList , PlanetDetails, StarshipDetails, StarshipList } from '../SwComponents'
@@ -8,8 +7,6 @@ import { PersonList, PersonDetails, PlanetList , PlanetDetails, StarshipDetails,
 import './people-page.css'
 
 export default class extends Component {
-
-  swapiService = new SwapiService()
 
   state = {
     selectedPersonId: 1,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SwapiService from '../../services/swapi-service'
 import Spinner from '../Spinner'
 import ErrorIndicator from '../ErrorIndicator'
 
@@ -19,8 +18,6 @@ export {
 }
 
 export default class extends Component {
-
-  swapiService = new SwapiService()
 
   state = {
     item: null,
@@ -64,9 +61,9 @@ export default class extends Component {
     this.updateItem()
   }
 
-  addChildProp = item => {
+  addChildProp = child => {
     return React.Children.map( this.props.children, child => {
-      return React.cloneElement(child, { item })
+      return React.cloneElement(child, { item: this.state.item })
     } )
   }
 
