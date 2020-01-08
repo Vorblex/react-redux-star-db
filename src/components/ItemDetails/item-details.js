@@ -5,6 +5,19 @@ import ErrorIndicator from '../ErrorIndicator'
 
 import './item-details.css'
 
+const Record = ({ item, field, label }) => {
+  return (
+    <li className="list-group-item">
+      <span className="term">{label}</span>
+      <span>{item[field]}</span>
+    </li>
+  )
+}
+
+export {
+  Record
+}
+
 export default class extends Component {
 
   swapiService = new SwapiService()
@@ -51,11 +64,11 @@ export default class extends Component {
     this.updateItem()
   }
 
-  // addChildProp(item) {
-  //   return React.Children.map( this.props.children, child => {
-  //     return React.cloneElement(child, { item })
-  //   } )
-  // }
+  addChildProp = item => {
+    return React.Children.map( this.props.children, child => {
+      return React.cloneElement(child, { item })
+    } )
+  }
 
   render() {
     const {item, image, loading, error} = this.state
@@ -73,11 +86,7 @@ export default class extends Component {
         <div className="card-body">
           <h4>{item.name}</h4>
           <ul className="list-group list-group-flush">
-            {
-              React.Children.map( this.props.children, child => {
-                return React.cloneElement(child, { item })
-              } )
-            }
+            { <this.addChildProp /> }
           </ul>
         </div>
       </div>
@@ -85,4 +94,8 @@ export default class extends Component {
   }
 }
 
-
+// {
+//   React.Children.map( this.props.children, child => {
+//     return React.cloneElement(child, { item })
+//   } )
+// }

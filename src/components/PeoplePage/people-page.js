@@ -33,37 +33,21 @@ export default class extends Component {
     })
   }
 
-  renderPeopleItem = ({name, birthYear}) => {
-    return `${name} (${birthYear})` 
-  }
-  renderItem = ({name, birthYear}) => {
-    return `${name}` 
-  }
-
   render() {
 
-    const {onPersonSelected, onPlanetSelected, onStarshipSelected, renderPeopleItem, renderItem} = this
+    const {onPersonSelected, onPlanetSelected, onStarshipSelected} = this
     const {selectedPersonId, selectedPlanetId, selectedStarshipId} = this.state
-    // const itemList = (
-    //   <ItemList onItemSelected={this.onPersonSelected}
-    //             getData={this.swapiService.getAllPeople}
-    //   >
-    //     { i => (
-    //      `${i.name} (${i.birthYear})` 
-    //     )}
-    //   </ItemList>
-    // )
 
     return (
       <ErrorBoundry>
           <RowComponent
-            leftElement={<PersonList onItemSelected={onPersonSelected}>{renderPeopleItem}</PersonList>}
+            leftElement={<PersonList onItemSelected={onPersonSelected} />}
             rightElement={<PersonDetails itemId={selectedPersonId} />} />
           <RowComponent
-            leftElement={<PlanetList onItemSelected={onPlanetSelected}>{renderItem}</PlanetList>}
+            leftElement={<PlanetList onItemSelected={onPlanetSelected} />}
             rightElement={<PlanetDetails itemId={selectedPlanetId} />} />
           <RowComponent
-            leftElement={<StarshipList onItemSelected={onStarshipSelected}>{renderItem}</StarshipList>}
+            leftElement={<StarshipList onItemSelected={onStarshipSelected} />}
             rightElement={<StarshipDetails itemId={selectedStarshipId} />} />
       </ErrorBoundry>
     )
