@@ -40,12 +40,12 @@ export default class extends Component {
           <RowComponent
             leftElement={<PersonList onItemSelected={onPersonSelected} />}
             rightElement={<PersonDetails itemId={selectedPersonId} />} />
-          <RowComponent
+          {/* <RowComponent
             leftElement={<PlanetList onItemSelected={onPlanetSelected} />}
             rightElement={<PlanetDetails itemId={selectedPlanetId} />} />
           <RowComponent
             leftElement={<StarshipList onItemSelected={onStarshipSelected} />}
-            rightElement={<StarshipDetails itemId={selectedStarshipId} />} />
+            rightElement={<StarshipDetails itemId={selectedStarshipId} />} /> */}
       </ErrorBoundry>
     )
   }

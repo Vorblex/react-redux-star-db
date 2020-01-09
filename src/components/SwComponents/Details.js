@@ -1,72 +1,58 @@
 import React from 'react'
 
 import ItemDetails, { Record } from '../ItemDetails'
-import { SwapiServiceConsumer } from '../SwapiServiceContext';
+import { WithSwapiService } from '../hoc-helpers'
 
-const PersonDetails = ({itemId}) => {
-
+let PersonDetails = ({ itemId , getData, getImageUrl }) => {
   return (
-    <SwapiServiceConsumer>
-      {
-        ({ getPerson, getPersonImage }) => (
-          <ItemDetails itemId={itemId}
-          getData={getPerson}
-          getImageUrl={getPersonImage}
-          >
-          <Record field="gender" label="Gender" />
-          <Record field="eyeColor" label="Eye Color" />
-          </ItemDetails>
-        )
-        
-      }
-    </SwapiServiceConsumer>
+    <ItemDetails itemId={itemId}
+    getData={getData}
+    getImageUrl={getImageUrl}
+    >
+    <Record field="gender" label="Gender" />
+    <Record field="eyeColor" label="Eye Color" />
+    </ItemDetails>
+  )
+
+}
+
+let PlanetDetails = ({itemId, swapiService : { getPlanet, getPlanetImage }}) => {
+  return (
+    <ItemDetails itemId={itemId}
+    getData={getPlanet}
+    getImageUrl={getPlanetImage}
+    >
+    <Record field="population" label="Population" />
+    <Record field="rotationPeriod" label="Rotation Period" />
+    <Record field="diameter" label="Diameter" />
+    </ItemDetails>
   )
 }
 
-const PlanetDetails = ({itemId}) => {
-
+let StarshipDetails = ({itemId, swapiService : { getStarship, getStarshipImage }}) => {
   return (
-    <SwapiServiceConsumer>
-      {
-        ({ getPlanet, getPlanetImage }) => {
-          return (
-            <ItemDetails itemId={itemId}
-            getData={getPlanet}
-            getImageUrl={getPlanetImage}
-            >
-            <Record field="population" label="Population" />
-            <Record field="rotationPeriod" label="Rotation Period" />
-            <Record field="diameter" label="Diameter" />
-            </ItemDetails>
-          )
-        }
-      }
-    </SwapiServiceConsumer>
+    <ItemDetails itemId={itemId}
+    getData={getStarship}
+    getImageUrl={getStarshipImage}
+    >
+    <Record field="model" label="Model" />
+    <Record field="length" label="Length" />
+    <Record field="costInCredits" label="Cost In Credits" />
+    <Record field="cargoCapacity" label="Cargo Capacity" />
+    </ItemDetails>
   )
 }
 
-const StarshipDetails = ({itemId}) => {
-
-  return (
-    <SwapiServiceConsumer>
-      {
-        ({ getStarship, getStarshipImage }) => {
-          return (
-            <ItemDetails itemId={itemId}
-            getData={getStarship}
-            getImageUrl={getStarshipImage}
-            >
-            <Record field="model" label="Model" />
-            <Record field="length" label="Length" />
-            <Record field="costInCredits" label="Cost In Credits" />
-            <Record field="cargoCapacity" label="Cargo Capacity" />
-            </ItemDetails>
-          )
-        }
-      }
-    </SwapiServiceConsumer>
-  )
+const mapMethodsToProps = swapiService => {
+  return {
+    getData: swapiService.getPerson,
+    getImageUrl: swapiService.getPersonImage
+  }
 }
+
+PersonDetails = WithSwapiService(PersonDetails, mapMethodsToProps)
+PlanetDetails = WithSwapiService(PlanetDetails)
+StarshipDetails = WithSwapiService(StarshipDetails)
 
 export {
   PersonDetails,
