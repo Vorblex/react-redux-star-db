@@ -3,7 +3,7 @@ import React from 'react'
 
 import './header.css'
 
-export default () => {
+export default ({ onServiceChange }) => {
   return (
       <div className="Header d-flex">
         <h3>
@@ -22,6 +22,10 @@ export default () => {
             <a href="#">Starships</a>
           </li>
         </ul>
+        <button onClick={onServiceChange}
+                className="btn btn-primary btm-sm">
+          Change Service
+        </button>
       </div>
   );
 }

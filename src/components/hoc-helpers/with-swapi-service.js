@@ -15,3 +15,13 @@ export default (Wrapped, mapMethodsToProps) => {
     )
   }
 }
+
+// <SwapiServiceConsumer>
+// { (swapiService) => { 
+//   let name = Wrapped.name
+//   name = name.slice(0, name.indexOf('Details'))
+//   return (
+//   <Wrapped {...props} {...mapMethodsToProps(swapiService, name)} />
+//   )}
+// }
+// </SwapiServiceConsumer>

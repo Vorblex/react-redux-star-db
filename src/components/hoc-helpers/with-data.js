@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Spinner from '../Spinner'
 // import ErrorIndicator from '../ErrorIndicator'
 
-export default (View, getData) => {
+export default (View) => {
   return class extends Component {
 
   state = {
@@ -10,7 +10,17 @@ export default (View, getData) => {
   }
 
   componentDidMount() {
-    getData()
+    this.update()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.getData === this.props.getData) return
+
+      this.update()
+  }
+
+  update() {
+    this.props.getData()
       .then( data => {
         this.setState({
           data
