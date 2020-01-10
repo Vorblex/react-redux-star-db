@@ -4,9 +4,9 @@ import Header from '../Header'
 import RandomPlanet from '../RandomPlanet'
 import ErrorBoundry from '../ErrorBoundry'
 import ErrorIndicator from '../ErrorIndicator'
-import PeoplePage from '../PeoplePage'
 import SwapiService from '../../services/swapi-service'
 import DummySwapiService from '../../services/dummy-swapi-service';
+import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages'
 
 import { SwapiServiceProvider } from '../SwapiServiceContext';
 
@@ -15,7 +15,7 @@ import './app.css'
 export default class extends Component {
 
   state = {
-    swapiService: new DummySwapiService(),
+    swapiService: new SwapiService(),
     hasError: false
   }
 
@@ -42,6 +42,8 @@ export default class extends Component {
             <Header onServiceChange={this.changeApiService} />
             <RandomPlanet />
             <PeoplePage />
+            <PlanetsPage />
+            <StarshipsPage />
           </SwapiServiceProvider>
         </ErrorBoundry>
       </div>

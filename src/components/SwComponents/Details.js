@@ -6,8 +6,8 @@ import { WithSwapiService } from '../hoc-helpers'
 let PersonDetails = (props) => {
   return (
     <ItemDetails {...props}>
-    <Record field="gender" label="Gender" />
-    <Record field="eyeColor" label="Eye Color" />
+      <Record field="gender" label="Gender" />
+      <Record field="eyeColor" label="Eye Color" />
     </ItemDetails>
   )
 
@@ -16,9 +16,9 @@ let PersonDetails = (props) => {
 let PlanetDetails = (props) => {
   return (
     <ItemDetails {...props}>
-    <Record field="population" label="Population" />
-    <Record field="rotationPeriod" label="Rotation Period" />
-    <Record field="diameter" label="Diameter" />
+      <Record field="population" label="Population" />
+      <Record field="rotationPeriod" label="Rotation Period" />
+      <Record field="diameter" label="Diameter" />
     </ItemDetails>
   )
 }
@@ -26,10 +26,10 @@ let PlanetDetails = (props) => {
 let StarshipDetails = (props) => {
   return (
     <ItemDetails {...props}>
-    <Record field="model" label="Model" />
-    <Record field="length" label="Length" />
-    <Record field="costInCredits" label="Cost In Credits" />
-    <Record field="cargoCapacity" label="Cargo Capacity" />
+      <Record field="model" label="Model" />
+      <Record field="length" label="Length" />
+      <Record field="costInCredits" label="Cost In Credits" />
+      <Record field="cargoCapacity" label="Cargo Capacity" />
     </ItemDetails>
   )
 }

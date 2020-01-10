@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 
 import ErrorBoundry from '../ErrorBoundry'
 import RowComponent from '../RowComponent'
-import { PersonList, PersonDetails, PlanetList , PlanetDetails, StarshipDetails, StarshipList } from '../SwComponents'
-
-import './people-page.css'
+import { PersonList, PersonDetails } from '../SwComponents'
 
 export default class extends Component {
 
@@ -32,20 +30,13 @@ export default class extends Component {
 
   render() {
 
-    const { onPersonSelected, onPlanetSelected, onStarshipSelected,
-      state : { selectedPersonId, selectedPlanetId, selectedStarshipId }} = this
+    const { onPersonSelected, state : { selectedPersonId } } = this
 
     return (
       <ErrorBoundry>
           <RowComponent
             leftElement={<PersonList onItemSelected={onPersonSelected} />}
             rightElement={<PersonDetails itemId={selectedPersonId} />} />
-          <RowComponent
-            leftElement={<PlanetList onItemSelected={onPlanetSelected} />}
-            rightElement={<PlanetDetails itemId={selectedPlanetId} />} />
-          <RowComponent
-            leftElement={<StarshipList onItemSelected={onStarshipSelected} />}
-            rightElement={<StarshipDetails itemId={selectedStarshipId} />} />
       </ErrorBoundry>
     )
   }

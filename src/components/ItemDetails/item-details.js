@@ -4,17 +4,13 @@ import ErrorIndicator from '../ErrorIndicator'
 
 import './item-details.css'
 
-const Record = ({ item, field, label }) => {
+export const Record = ({ item, field, label }) => {
   return (
     <li className="list-group-item">
       <span className="term">{label}</span>
       <span>{item[field]}</span>
     </li>
   )
-}
-
-export {
-  Record
 }
 
 export default class extends Component {
@@ -65,7 +61,7 @@ export default class extends Component {
     }
   }
 
-  addChildProp = child => {
+  addChildProp = () => {
     return React.Children.map( this.props.children, child => {
       return React.cloneElement(child, { item: this.state.item })
     } )

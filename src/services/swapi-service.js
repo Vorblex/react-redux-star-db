@@ -23,7 +23,7 @@ export default class {
 
   getAllPlanets = async () => {
     const res = await this.getResource(`/planets/`)
-    return res.results.map(this._transformPlanet)
+    return res.results.map(this._transformPlanet).slice(0, 5)
   }
 
   getPlanet = async id => {
@@ -33,7 +33,7 @@ export default class {
 
   getAllStarships = async () => {
     const res = await this.getResource(`/starships/`)
-    return res.results.map(this._transformStarship)
+    return res.results.map(this._transformStarship).slice(0, 5)
   }
 
   getStarship = async id => {
