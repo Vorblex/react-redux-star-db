@@ -40,7 +40,7 @@ export default class extends Component {
         <ErrorBoundry>
           <SwapiServiceProvider value={this.state.swapiService}>
             <Header onServiceChange={this.changeApiService} />
-            <RandomPlanet />
+            <RandomPlanet updateInterval={8e3} />
             <PeoplePage />
             <PlanetsPage />
             <StarshipsPage />

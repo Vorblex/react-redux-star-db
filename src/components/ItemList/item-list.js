@@ -2,7 +2,7 @@ import React from 'react'
 
 import './item-list.css'
 
-export default ({data, onItemSelected, children : renderLabel}) =>  {
+export default function ItemList ({data, onItemSelected, children : renderLabel}) {
 
   const list = data.map(({id, ...item}) => {
 
@@ -22,4 +22,8 @@ export default ({data, onItemSelected, children : renderLabel}) =>  {
         {list}
       </ul>
     )
+}
+
+ItemList.defaultProps = {
+  onItemSelected: () => {}
 }

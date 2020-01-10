@@ -6,7 +6,21 @@ import SwapiService from '../../services/swapi-service'
 
 import './random-planet.css'
 
-export default class extends Component {
+export default class RandomPlanet extends Component {
+
+  static propTypes = {
+    updateInterval: (props, propName, componentName) => {
+      const value = props[propName]
+
+      if(typeof value === 'number' && !isNaN(value)) return null
+
+      return new TypeError(`${componentName}: ${propName} must be a number`)
+    }
+  }
+
+  static defaultProps = {
+    updateInterval: 5e3
+  }
 
   swapiService = new SwapiService()
 
@@ -18,7 +32,10 @@ export default class extends Component {
 
   componentDidMount() {
     this.updatePlanet()
-    // this.interval = setInterval(this.updatePlanet, 5e3)
+
+    const { updateInterval } = this.props
+
+    this.interval = setInterval(this.updatePlanet, updateInterval)
   }
 
   componentWillUnmount() {
