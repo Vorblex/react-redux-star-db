@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes, { func } from 'prop-types'
 
-export default ({leftElement, rightElement}) => {
+export default function Row ({leftElement, rightElement}) {
 
   return (
     <div className="RowComponent row mb-2">
@@ -12,4 +13,9 @@ export default ({leftElement, rightElement}) => {
       </div>
     </div>
   )
+}
+
+Row.propTypes = {
+  leftElement: PropTypes.node,
+  rightElement: PropTypes.node
 }
