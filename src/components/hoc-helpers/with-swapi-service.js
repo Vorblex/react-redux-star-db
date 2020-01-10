@@ -1,7 +1,7 @@
 import React from 'react';
 import { SwapiServiceConsumer } from '../SwapiServiceContext';
 
-export default (Wrapped, mapMethodsToProps) => {
+export default (mapMethodsToProps) => (Wrapped) => {
   
   return props => {
 

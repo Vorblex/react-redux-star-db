@@ -59,9 +59,9 @@ const mapStarshipMethodsToProps = swapiService => {
 //   }
 // }
 
-PersonDetails = WithSwapiService(PersonDetails, mapPesonMethodsToProps)
-PlanetDetails = WithSwapiService(PlanetDetails, mapPlanetMethodsToProps)
-StarshipDetails = WithSwapiService(StarshipDetails, mapStarshipMethodsToProps)
+PersonDetails = WithSwapiService(mapPesonMethodsToProps)(PersonDetails)
+PlanetDetails = WithSwapiService(mapPlanetMethodsToProps)(PlanetDetails)
+StarshipDetails = WithSwapiService(mapStarshipMethodsToProps)(StarshipDetails)
 
 export {
   PersonDetails,
