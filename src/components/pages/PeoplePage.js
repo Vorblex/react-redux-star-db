@@ -7,36 +7,24 @@ import { PersonList, PersonDetails } from '../SwComponents'
 export default class extends Component {
 
   state = {
-    selectedPersonId: 1,
-    selectedPlanetId: 15,
-    selectedStarshipId: 15
+    selectedItemId: 1
   }
 
-  onPersonSelected = (selectedPersonId) => {
+  onItemSelected = (selectedItemId) => {
     this.setState({
-      selectedPersonId
-    })
-  }
-  onPlanetSelected = (selectedPlanetId) => {
-    this.setState({
-      selectedPlanetId
-    })
-  }
-  onStarshipSelected = (selectedStarshipId) => {
-    this.setState({
-      selectedStarshipId
+      selectedItemId
     })
   }
 
   render() {
 
-    const { onPersonSelected, state : { selectedPersonId } } = this
+    const { onItemSelected, state : { selectedItemId } } = this
 
     return (
       <ErrorBoundry>
           <RowComponent
-            leftElement={<PersonList onItemSelected={onPersonSelected} />}
-            rightElement={<PersonDetails itemId={selectedPersonId} />} />
+            leftElement={<PersonList onItemSelected={onItemSelected} />}
+            rightElement={<PersonDetails itemId={selectedItemId} />} />
       </ErrorBoundry>
     )
   }

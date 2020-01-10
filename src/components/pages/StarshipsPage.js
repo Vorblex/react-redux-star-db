@@ -7,24 +7,24 @@ import { StarshipList, StarshipDetails } from '../SwComponents'
 export default class extends Component {
 
   state = {
-    selectedStarshipId: 15
+    selectedItemId: 15
   }
 
-  onStarshipSelected = (selectedStarshipId) => {
+  onItemSelected = (selectedItemId) => {
     this.setState({
-      selectedStarshipId
+      selectedItemId
     })
   }
 
   render() {
 
-    const { onStarshipSelected, state : { selectedStarshipId } } = this
+    const { onItemSelected, state : { selectedItemId } } = this
 
     return (
       <ErrorBoundry>
           <RowComponent
-            leftElement={<StarshipList onItemSelected={onStarshipSelected} />}
-            rightElement={<StarshipDetails itemId={selectedStarshipId} />} />
+            leftElement={<StarshipList onItemSelected={onItemSelected} />}
+            rightElement={<StarshipDetails itemId={selectedItemId} />} />
       </ErrorBoundry>
     )
   }

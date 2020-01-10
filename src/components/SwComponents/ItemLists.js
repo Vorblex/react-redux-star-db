@@ -1,17 +1,8 @@
 import React from 'react'
 
 import ItemList from '../ItemList'
-import { WithData, WithSwapiService } from "../hoc-helpers";
-
-const WithChildFunction = (fn) => (Wrapped) => {
-  return props => {
-    return (
-      <Wrapped {...props}>
-        {fn}
-      </Wrapped>
-    )
-  }
-}
+import { WithData, WithSwapiService, WithChildFunction } from "../hoc-helpers";
+import itemList from '../ItemList/item-list';
 
 const renderName = ({name, gender}) => {
   return <span>{name} ( {gender} )</span> 
@@ -33,23 +24,35 @@ const mapStarsStarshipMethodsToProps = ({getAllStarships : getData}) => {
   return { getData }
 }
 
-const PersonList = WithSwapiService(mapPersonMethodsToProps)
-                                      (WithData(
-                                          WithChildFunction(renderName)(ItemList) ))
+const compose = (...func) => (component) => {
+  return func.reduceRight((res, f) => f(res), component)
+}
 
-const PlanetList =  WithSwapiService(mapPlanetMethodsToProps)
-                                        (WithData(
-                                            WithChildFunction(renderNameDiameter)(ItemList) ))
+const PersonList = compose(
+                      WithSwapiService(mapPersonMethodsToProps),
+                      WithData,
+                      WithChildFunction(renderName)
+                    )(itemList)
 
-const StarshipList = WithSwapiService(mapStarsStarshipMethodsToProps)
-                                        (WithData(
-                                            WithChildFunction(renderNameModel)(ItemList) ))
+const PlanetList =  WithSwapiService(mapPlanetMethodsToProps)(
+                                        WithData(
+                                            WithChildFunction(renderNameDiameter)(ItemList)))
+
+const StarshipList = WithSwapiService(mapStarsStarshipMethodsToProps)(
+                                        WithData(
+                                            WithChildFunction(renderNameModel)(ItemList)))
 
 export {
   PersonList,
   PlanetList,
   StarshipList
 }
+
+
+
+// const PersonList = WithSwapiService(mapPersonMethodsToProps)(
+//                                       WithData(
+//                                           WithChildFunction(renderName)(ItemList)))
 
 // const itemList = (
 //   <ItemList onItemSelected={this.onPersonSelected}

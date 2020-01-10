@@ -7,24 +7,24 @@ import { PlanetList, PlanetDetails } from '../SwComponents'
 export default class extends Component {
 
   state = {
-    selectedPlanetId: 15
+    selectedItemId: 15
   }
 
-  onPlanetSelected = (selectedPlanetId) => {
+  onItemSelected = (selectedItemId) => {
     this.setState({
-      selectedPlanetId
+      selectedItemId
     })
   }
 
   render() {
 
-    const { onPlanetSelected, state : { selectedPlanetId } } = this
+    const { onItemSelected, state : { selectedItemId } } = this
 
     return (
       <ErrorBoundry>
           <RowComponent
-            leftElement={<PlanetList onItemSelected={onPlanetSelected} />}
-            rightElement={<PlanetDetails itemId={selectedPlanetId} />} />
+            leftElement={<PlanetList onItemSelected={onItemSelected} />}
+            rightElement={<PlanetDetails itemId={selectedItemId} />} />
       </ErrorBoundry>
     )
   }
