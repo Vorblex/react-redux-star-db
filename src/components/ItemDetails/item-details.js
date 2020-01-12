@@ -43,6 +43,11 @@ export default class extends Component {
     const { itemId, getData} = this.props
     if(!itemId) return
 
+    this.setState({
+      loading: true,
+      error: false
+    })
+
     getData(itemId)
       .then(this.onItemLoaded)
       .catch(this._onError)

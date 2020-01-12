@@ -6,8 +6,12 @@
 .Header ul li {
   list-style: none;
   margin: 0;
-  padding: .5rem 1rem;
   border-radius: 3px;
+}
+
+.Header ul li a {
+  display: block;
+  padding: .5rem 1rem;
 }
 
 .Header ul li:hover {
