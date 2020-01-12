@@ -18,7 +18,7 @@ export default class extends Component {
   state = {
     item: null,
     image: null,
-    loading: true,
+    loading: false,
     error: false
   }
 
@@ -76,8 +76,8 @@ export default class extends Component {
     const {item, image, loading, error} = this.state
 
     if (error) return <ErrorIndicator />
+    if(!item && !loading) return <div className="text-center">Select a person from a list</div>
     if(loading) return <div className="d-flex"><Spinner /></div>
-    if(!item) return <div className="text-center">Select a person from a list</div>
 
     return (
       <div className="ItemDetails card flex-row">

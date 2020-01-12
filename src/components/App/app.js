@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from '../Header'
 import RandomPlanet from '../RandomPlanet'
@@ -44,16 +44,20 @@ export default class extends Component {
             <Router>
               <Header onServiceChange={this.changeApiService} />
               <RandomPlanet updateInterval={8e3} />
-              <Route path="/" exact render={() => <h2>Welcome to Star Db</h2>} />
-              <Route path="/people" component={PeoplePage} />
-              <Route path="/planets" component={PlanetsPage} />
-              <Route path="/starships" exact  component={StarshipsPage} />
-              <Route path="/starships/:id" exact render={({match}) => {
-                const { id } = match.params
-                return (
-                  <StarshipDetails itemId={id} />
-                )
-              }} />
+              <Switch>
+                <Route path="/" exact render={() => <h2>Welcome to Star Db</h2>} />
+                <Route path="/people/:id?" component={PeoplePage} />
+                <Route path="/people" exact render={() => <h2>People page</h2>} />
+                <Route path="/planets" component={PlanetsPage} />
+                <Route path="/starships" exact component={StarshipsPage} />
+                <Route path="/starships/:id" render={({match}) => {
+                  const { id } = match.params
+                  return (
+                    <StarshipDetails itemId={id} />
+                  )
+                }} />
+                <Route render={() => <h2>Page not found</h2>} />
+              </Switch>
             </Router>
           </SwapiServiceProvider>
         </ErrorBoundry>
